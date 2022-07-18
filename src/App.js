@@ -39,30 +39,19 @@ function App() {
       return;
     }
 
-    if (!isEditing) {
-      const id = username[0] + age + Math.trunc(Math.random() * 100000);
-      const user = { username, age, id };
+    const id = isEditing
+      ? editID
+      : username[0] + age + Math.trunc(Math.random() * 100000);
+    const user = { username, age, id };
 
-      setUsername("");
-      setAge("");
-      setIsEditing(false);
+    setUsername("");
+    setAge("");
+    setIsEditing(false);
 
-      setUsers((prev) => {
-        return [...prev, user];
-      });
-    } else {
-      const id = editID;
-      const user = { username, age, id };
-
-      setUsername("");
-      setAge("");
-      setIsEditing(false);
-
-      setUsers((prev) => {
-        const newUsers = prev.filter((user) => user.id !== id);
-        return [...newUsers, user];
-      });
-    }
+    setUsers((prev) => {
+      const newUsers = isEditing ? prev.filter((user) => user.id !== id) : prev;
+      return [...newUsers, user];
+    });
   };
 
   const handleEditUser = (userId) => {
@@ -87,13 +76,11 @@ function App() {
       <Form
         username={username}
         age={age}
-        users={users}
         handleAddUser={handleAddUser}
         handleInputChange={handleInputChange}
       />
       <UsersList
         users={users}
-        setUsers={setUsers}
         handleDeleteUser={handleDeleteUser}
         handleEditUser={handleEditUser}
       />

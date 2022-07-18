@@ -3,7 +3,7 @@ import styles from "./UsersList.module.css";
 import Card from "./Card";
 import { FaRegTrashAlt, FaPen } from "../../node_modules/react-icons/fa";
 
-function UsersList({ users, setUsers, handleDeleteUser, handleEditUser }) {
+function UsersList({ users, handleDeleteUser, handleEditUser }) {
   if (users.length === 0) return;
 
   return (

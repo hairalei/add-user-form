@@ -1,0 +1,14 @@
+.card {
+  max-width: 80rem;
+  width: 100vw;
+  background-color: #fff;
+  border-radius: 1rem;
+  color: #333;
+  padding: 3rem 2rem;
+  box-shadow: 0 25px 30px rgba(0, 0, 0, 0.9);
+  margin-bottom: 4.2rem;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}

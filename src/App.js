@@ -7,16 +7,96 @@ function App() {
   const [users, setUsers] = useState([]);
   const [isInvalid, setIsInvalid] = useState(false);
   const [invalidMessage, setInvalidMessage] = useState("");
+  const [username, setUsername] = useState("");
+  const [age, setAge] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editID, setEditID] = useState("");
+
+  const handleInputChange = (e) => {
+    if (e.target.id === "username") {
+      setUsername(e.target.value);
+    }
+
+    if (e.target.id === "age") {
+      setAge(e.target.value);
+    }
+  };
+
+  const handleAddUser = (e) => {
+    e.preventDefault();
+
+    if (username.length === 0 || age.length === 0) {
+      setIsInvalid(true);
+      setInvalidMessage(
+        "Please enter a valid username and age (non-empty values)."
+      );
+      return;
+    }
+
+    if (age < 0 || age > 130) {
+      setIsInvalid(true);
+      setInvalidMessage("Please enter a valid age (between 1 and 130).");
+      return;
+    }
+
+    if (!isEditing) {
+      const id = username[0] + age + Math.trunc(Math.random() * 100000);
+      const user = { username, age, id };
+
+      setUsername("");
+      setAge("");
+      setIsEditing(false);
+
+      setUsers((prev) => {
+        return [...prev, user];
+      });
+    } else {
+      const id = editID;
+      const user = { username, age, id };
+
+      setUsername("");
+      setAge("");
+      setIsEditing(false);
+
+      setUsers((prev) => {
+        const newUsers = prev.filter((user) => user.id !== id);
+        return [...newUsers, user];
+      });
+    }
+  };
+
+  const handleEditUser = (userId) => {
+    setIsEditing(true);
+    const user = users.filter((user) => user.id === userId);
+
+    setUsername(user[0].username);
+    setAge(user[0].age);
+    setEditID(userId);
+  };
+
+  const handleDeleteUser = (userId) => {
+    setUsers((prev) => {
+      const updatedUsers = prev.filter((user) => user.id !== userId);
+
+      return updatedUsers;
+    });
+  };
 
   return (
     <div className="App">
       <Form
+        username={username}
+        age={age}
+        users={users}
+        handleAddUser={handleAddUser}
+        handleInputChange={handleInputChange}
+      />
+      <UsersList
         users={users}
         setUsers={setUsers}
-        setIsInvalid={setIsInvalid}
-        setInvalidMessage={setInvalidMessage}
+        handleDeleteUser={handleDeleteUser}
+        handleEditUser={handleEditUser}
       />
-      <UsersList users={users} setUsers={setUsers} />
       <Modal
         isInvalid={isInvalid}
         setIsInvalid={setIsInvalid}

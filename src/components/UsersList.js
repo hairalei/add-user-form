@@ -3,16 +3,8 @@ import styles from "./UsersList.module.css";
 import Card from "./Card";
 import { FaRegTrashAlt, FaPen } from "../../node_modules/react-icons/fa";
 
-function UsersList({ users, setUsers }) {
+function UsersList({ users, setUsers, handleDeleteUser, handleEditUser }) {
   if (users.length === 0) return;
-
-  const handleDeleteUser = (userId) => {
-    setUsers((prev) => {
-      const updatedUsers = prev.filter((user) => user.id !== userId);
-
-      return updatedUsers;
-    });
-  };
 
   return (
     <Card>
@@ -27,6 +19,7 @@ function UsersList({ users, setUsers }) {
               <div className="btns">
                 <button
                   className={styles["btn--icon"] + " " + styles["btn--edit"]}
+                  onClick={() => handleEditUser(user.id)}
                 >
                   <FaPen />
                 </button>

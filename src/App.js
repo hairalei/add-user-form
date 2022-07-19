@@ -33,7 +33,7 @@ function App() {
   const handleAddUser = (e) => {
     e.preventDefault();
 
-    if (username.length === 0 || age.length === 0) {
+    if (username.trim().length === 0 || age.length === 0) {
       setIsInvalid(true);
       setInvalidMessage(
         "Please enter a valid username and age (non-empty values)."

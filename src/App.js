@@ -4,7 +4,7 @@ import UsersList from "./components/UsersList";
 import Modal from "./components/Modal";
 
 function App() {
-  const localData = JSON.parse(window.localStorage.getItem("localData"));
+  const localData = JSON.parse(window.localStorage.getItem("localData")) || [];
   const data = localData.length > 0 ? localData : [];
 
   const [users, setUsers] = useState(data);

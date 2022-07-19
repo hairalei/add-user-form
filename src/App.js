@@ -8,10 +8,10 @@ function App() {
   const data = localData.length > 0 ? localData : [];
 
   const [users, setUsers] = useState(data);
-  const [isInvalid, setIsInvalid] = useState(false);
-  const [invalidMessage, setInvalidMessage] = useState("");
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [invalidMessage, setInvalidMessage] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editID, setEditID] = useState("");
 

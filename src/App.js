@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "./components/Form";
 import UsersList from "./components/UsersList";
 import Modal from "./components/Modal";
 
 function App() {
-  const [users, setUsers] = useState([]);
+  const localData = JSON.parse(window.localStorage.getItem("localData"));
+  const data = localData.length > 0 ? localData : [];
+
+  const [users, setUsers] = useState(data);
   const [isInvalid, setIsInvalid] = useState(false);
   const [invalidMessage, setInvalidMessage] = useState("");
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editID, setEditID] = useState("");
+
+  useEffect(() => {
+    console.log("save");
+    window.localStorage.setItem("localData", JSON.stringify(users));
+  }, [users]);
 
   const handleInputChange = (e) => {
     if (e.target.id === "username") {

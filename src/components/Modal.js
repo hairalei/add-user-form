@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import styles from "./Modal.module.css";
 import Card from "./Card";
 
@@ -7,7 +8,7 @@ function Modal({ isInvalid, setIsInvalid, invalidMessage }) {
     setIsInvalid(false);
   };
 
-  return (
+  return ReactDOM.createPortal(
     <>
       <div
         className={`${
@@ -26,7 +27,8 @@ function Modal({ isInvalid, setIsInvalid, invalidMessage }) {
           </Card>
         </div>
       </div>
-    </>
+    </>,
+    document.getElementById("portal")
   );
 }
 

@@ -5,3 +5,5 @@
 ## Live preview
 
 https://add-user-form.vercel.app/
+
+![app-preview](/public/addusergif.gif)
